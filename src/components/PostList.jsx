@@ -1,53 +1,24 @@
 import Post from './Post'
 import styles from './PostList.module.css'
-import { useState, useEffect } from 'react'
+import { useLoaderData } from 'react-router-dom'
 
 function PostList() {
 
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        async function fetchPosts() {
-            setLoading(true)
-            const response = await fetch('http://localhost:8080/posts')
-            const resData = await response.json()
-            setPosts(resData.posts)
-            setLoading(false)
-        }
-
-        fetchPosts()
-    }, [])
-
-    const addPostHandler = (postData) => {
-        fetch('http://localhost:8080/posts', {
-            method: 'POST',
-            body: JSON.stringify(postData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        setPosts((existingPost) => [postData, ...existingPost])
-    }
+    const posts = useLoaderData()
 
     return (
         <div>
-            {!loading && posts.length > 0 &&
+            {posts.length > 0 &&
                 <ul className={styles.container}>
-                    {posts.map((item, index) => 
-                        <Post body={item.body} name={item.name} key={index} />
+                    {posts.map((item) => 
+                        <Post body={item.body} id={item.id} name={item.name} key={item.id} />
                     )}
                 </ul>
             }
-            {!loading && posts.length == 0 &&
+            {posts.length == 0 &&
                 <div style={{marginTop: '50px', textAlign: 'center', color: 'white'}}>
                     <h2>There are No Posts Yet</h2>
                     <p>Start adding some!</p>
-                </div>
-            }
-            {loading && 
-                <div style={{marginTop: '50px', textAlign: 'center', color: 'white'}}>
-                <p>Loading posts...</p>
                 </div>
             }
         </div>

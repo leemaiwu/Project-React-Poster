@@ -11,6 +11,10 @@
     animation: animate-in 1s ease-out forwards;
 }
 
+.card a {
+  text-decoration: none;
+}
+
 .text {
     color: rgb(255, 255, 255);
     margin: 5px;
