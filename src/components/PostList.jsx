@@ -1,10 +1,8 @@
 import Post from './Post'
-import NewPost from './NewPost'
-import Modal from './Modal'
 import styles from './PostList.module.css'
 import { useState, useEffect } from 'react'
 
-function PostList({onFinishPost, isPosting}) {
+function PostList() {
 
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(false)
@@ -34,14 +32,6 @@ function PostList({onFinishPost, isPosting}) {
 
     return (
         <div>
-            {isPosting && 
-                <Modal onClose={onFinishPost}>
-                    <NewPost 
-                        onCancel={onFinishPost}
-                        onNewPost={addPostHandler} 
-                    />
-                </Modal>
-            }
             {!loading && posts.length > 0 &&
                 <ul className={styles.container}>
                     {posts.map((item, index) => 

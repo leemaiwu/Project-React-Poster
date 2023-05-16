@@ -1,31 +1,16 @@
-
-import { useState } from "react"
 import PostList from "../components/PostList"
-import MainHeader from "../components/MainHeader"
+import { Outlet } from "react-router-dom"
 
-function App({}) {
-
-  const [displayModal, setDisplayModal] = useState(false)
-
-  const showModal = () => {
-    setDisplayModal(true)
-  }
-
-  const hideModal = () => {
-    setDisplayModal(false)
-  }
+function Posts({}) {
 
   return (
     <>
-      <MainHeader onCreatePost={showModal}/>
+      <Outlet />
       <main>
-          <PostList 
-            isPosting={displayModal} 
-            onFinishPost={hideModal} 
-          />
+          <PostList />
       </main>
     </>
   )
 }
 
-export default App
+export default Posts
